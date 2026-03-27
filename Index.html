@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Noche de Adoración | Jóvenes de la IEMA</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Montserrat', sans-serif; }
+    .title-font { font-family: 'Playfair Display', serif; }
+
+    .hero-bg {
+      background: linear-gradient(rgba(0,0,0,0.78), rgba(0,0,0,0.88)), 
+                  radial-gradient(circle at center, rgba(185, 28, 28, 0.55), rgba(234, 88, 12, 0.35));
+      background-size: cover;
+      background-position: center;
+    }
+
+    .song-card {
+      transition: all 0.3s ease;
+    }
+    .song-card:hover {
+      transform: translateY(-4px);
+      background-color: #431407;
+    }
+
+    .glow { text-shadow: 0 0 20px rgb(234 88 12 / 0.65); }
+    .isologo { filter: drop-shadow(0 0 18px rgb(234 88 12 / 0.6)); }
+
+    .letra {
+      white-space: pre-line;
+      font-family: system-ui, -apple-system, sans-serif;
+      line-height: 1.85;
+      font-size: 1.1rem;
+      text-align: center;
+    }
+  </style>
+</head>
+<body class="bg-zinc-950 text-white min-h-screen">
+
+  <!-- Hero -->
+  <div class="hero-bg min-h-screen flex flex-col items-center justify-center relative overflow-hidden">
+    <div class="absolute top-8 left-1/2 -translate-x-1/2 z-10">
+      <img src="isologo-blanco-cruz-roja.webp" 
+           alt="Isologo IEMA" 
+           class="isologo h-28 w-auto mx-auto">
+    </div>
+
+    <div class="text-center px-6 mt-20">
+      <h1 class="title-font text-5xl md:text-6xl font-bold tracking-tight glow text-white leading-none">
+        NOCHE DE
+      </h1>
+      <h1 class="title-font text-6xl md:text-7xl font-bold tracking-tighter text-orange-400 glow leading-none">
+        ADORACIÓN
+      </h1>
+    </div>
+
+    <div class="mt-12">
+      <p class="text-orange-300 text-lg font-medium">#JOVENESDELAIEMA</p>
+    </div>
+
+    <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-orange-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-9-9m0 0L5 14" />
+      </svg>
+    </div>
+  </div>
+
+  <!-- Lista de canciones -->
+  <div class="max-w-3xl mx-auto px-6 py-16">
+    <h2 class="text-3xl font-semibold text-center mb-12 text-orange-300">Lista de canciones</h2>
+    
+    <div class="space-y-4" id="song-list"></div>
+  </div>
+
+  <!-- Información del evento -->
+  <div class="bg-zinc-900 py-16">
+    <div class="max-w-3xl mx-auto px-6 text-center">
+      <div class="text-orange-400 text-2xl font-medium mb-3">Viernes</div>
+      <div class="text-5xl font-bold mb-8">19:30 hs</div>
+      <p class="text-xl mb-6">San Martín 940 - Rosario</p>
+      <p class="text-orange-300 text-lg">Mayores de 15 años</p>
+    </div>
+  </div>
+
+  <footer class="py-8 text-center text-zinc-500 text-sm">
+    <p>Jóvenes de la IEMA • Rosario</p>
+  </footer>
+
+  <script>
+    const songs = [
+      "ESPIRITU SANTO BIENVENIDO A ESTE LUGAR",
+      "BIENVENIDO ESPIRITU DE DIOS",
+      "EN EL NOMBRE DE JESUS",
+      "ESPIRITU SANTO VEN LLENAMÉ (RENASCER PRAISE)",
+      "SEÑOR LLEVAME A TUS ATRIOS",
+      "YO TE BUSCO",
+      "SANTO ESPIRITU DE DIOS",
+      "QUE DULCE ES ESTAR EN TU PRESENCIA",
+      "TU AMOR NO TIENE FIN",
+      "MI ALMA AHNELA"
+    ];
+
+    const letras = {
+      "ESPIRITU SANTO BIENVENIDO A ESTE LUGAR": 
+`ESPIRITU SANTO BIENVENIDO 
+A ESTE LUGAR
+
+JESUCRISTO BIENVENIDO 
+A ESTE LUGAR
+
+PADRE OMNIPOTENTE 
+DE GRACIA Y AMOR
+
+BIENVENIDO A ESTE LUGAR
+
+ESPIRITU SANTO BIENVENIDO 
+A ESTE LUGAR
+
+JESUCRISTO BIENVENIDO 
+A ESTE LUGAR
+
+PADRE OMNIPOTENTE 
+DE GRACIA Y AMOR
+
+BIENVENIDO A ESTE LUGAR`,
+
+      "BIENVENIDO ESPIRITU DE DIOS": 
+`BIENVENIDO ESPIRITU DE DIOS
+DAMOS GLORIA SOLO A TI SEÑOR
+
+BIENVENIDO ESPIRITU DE DIOS
+HOY RENDIMOS CORONAS A TUS PIES
+
+BIENVENIDO ESPIRITU DE DIOS
+DAMOS GLORIA SOLO A TI SEÑOR
+
+BIENVENIDO ESPIRITU DE DIOS
+HOY RENDIMOS CORONAS A TUS PIES`,
+
+      "EN EL NOMBRE DE JESUS": 
+`LUCHA POR NOSOTROS
+A NUESTRO LADO ESTA
+
+SUYA ES LA VICTORIA
+HA VENCIDO YA
+
+NO NOS DETENDREMOS
+NO NOS MOVERAN
+
+CRISTO ESTAS AQUI
+
+LLEVA NUESTRAS CARGAS
+NOS LIBRA DEL MAL
+
+SUYA ES LA VICTORIA
+HA VENCIDO YA
+
+NO NOS DETENDREMOS
+NO NOS MOVERAN
+
+CRISTO ESTAS AQUI
+
+VIVIRE NO MORIRE
+
+POR EL PODER
+DE SU NOMBRE
+
+QUE VIVE EN MI
+
+SOY LIBRE AL FIN
+SOLO EN JESUS
+
+LLEVA NUESTRAS CARGAS
+NOS LIBRA DEL MAL
+
+SUYA ES LA VICTORIA
+HA VENCIDO YA
+
+NO NOS DETENDREMOS
+NO NOS MOVERAN
+
+CRISTO ESTAS AQUI
+
+VIVIRE NO MORIRE
+
+POR EL PODER
+DE SU NOMBRE
+
+QUE VIVE EN MI
+
+SOY LIBRE AL FIN
+SOLO EN JESUS
+
+VIVIRE NO MORIRE
+SU NOMBRE HOY LEVANTARE
+
+DECLARO HOY
+
+QUE SANO SOY
+SOLO EN JESUS
+
+DIOS ES POR NOSOTROS
+VENCE LAS TINIEBLAS
+
+SU REINO ESTABLECE
+NO SERA MOVIDO
+
+EN TU NOMBRE CRISTO
+CAE EL ENEMIGO
+
+Y YO LO GRITARE
+GRITARE
+
+VIVIRE NO MORIRE
+
+POR EL PODER
+DE SU NOMBRE
+
+QUE VIVE EN MI
+
+SOY LIBRE AL FIN
+SOLO EN JESUS
+
+VIVIRE NO MORIRE
+SU NOMBRE HOY LEVANTARE
+
+DECLARO HOY
+
+QUE SANO SOY
+SOLO EN JESUS`,
+
+      "ESPIRITU SANTO VEN LLENAMÉ (RENASCER PRAISE)": 
+`ESPIRITU SANTO VEN LLENAMÉ
+ESPIRITU SANTO VEN LLENAMÉ
+
+CUANTAS VECES ES TAN DIFICIL
+MIRAR AL FRENTE Y SEGUIR
+
+LAGRIMAS DE UN CORAZÓN
+QUE INSISTE EN MIRAR ATRÁS
+
+VOY A DECLARAR QUE A FUTURO
+LO MEJOR VOY VIVIR
+
+EL PASADO ACABÓ
+ES TIEMPO DE AVANZAR
+
+EL SEÑOR ME VA A AYUDAR
+VA TRANSFORMAR MI CORAZÓN
+
+ESPIRITU SANTO VEN LLENAMÉ
+EN TU LIBERTAD YO DESCANSARÉ
+
+SIEMPRE HAY MÁS PARA AQUELLOS QUE CREEN
+MI OJOS EN CRISTO YO PONDRÉ
+
+ESPIRITU SANTO, VEN LLENAMÉ`,
+
+      "SEÑOR LLEVAME A TUS ATRIOS": 
+`SEÑOR LLEVAME A TUS ATRIOS 
+AL LUGAR AL SANTO 
+
+AL ALTAR DE BRONCE 
+SEÑOR TU ROSTRO QUIERO VER 
+
+PASAME LA MUCHEDUMBRE 
+POR DONDE EL SACERDOTE CANTA 
+
+TENGO HAMBRE Y SED DE JUSTICIA 
+Y SOLO ENCUENTRO UN LUGAR 
+
+LLEVAME AL LUGAR 
+SANTÍSIMO 
+
+POR LA SANGRE DEL 
+CORDERO REDENTOR 
+
+LLEVAME AL LUGAR 
+SANTÍSIMO 
+
+TÓCAME, LIMPIAME 
+Y HEME AQUÍ`,
+
+      "YO TE BUSCO": 
+`YO TE BUSCO, YO TE BUSCO
+CON FUEGO EN MI CORAZÓN
+
+YO TE BUSCO, YO TE BUSCO
+RECIBE MI ADORACIÓN
+
+TE ANHELO
+TE NECESITO
+
+TE AMO
+MÁS QUE A MI SER`,
+
+      "SANTO ESPIRITU DE DIOS": 
+`SANTO ESPÍRITU DE DIOS
+VEN Y HAZ TU HABITACIÓN AQUI
+
+QUE TU GRACIA SE DERRAME 
+SOBRE MI
+
+VEN
+SANTO ESPÍRITU DE DIOS
+
+VEN
+AQUÍ ESTÁ MI CORAZÓN
+
+QUE TE ANHELA 
+MÁS Y MÁS
+
+Y MI ALMA SEDIENTA 
+ESTÁ DE TI, OH SEÑOR
+
+TU PRESENCIA BUSCARÉ
+
+UN ENCUENTRO CONTIGO 
+HOY QUIERO TENER, OH SEÑOR`,
+
+      "QUE DULCE ES ESTAR EN TU PRESENCIA": 
+`QUE DULCE ES ESTAR 
+EN TU PRESENCIA
+
+CONTEMPLANDO LA HERMOSURA
+ DE TU MAJESTAD
+
+Y RECONOCIENDO 
+QUE TÚ ERES SEÑOR
+
+TODO PODEROSO 
+Y EL GRAN YO SOY 
+
+SANTO, SANTO 
+
+MI CORAZÓN SE UNE
+ A LA MELODÍA ANGELICAL`,
+
+      "TU AMOR NO TIENE FIN": 
+`CORRO A LOS BRAZOS DE MI PADRE
+
+TE ESCUCHO DECIR:
+MI HIJO ERES TU
+
+ME ACERCO AL TRONO DE TU GRACIA
+
+ME RINDO ANTE TI
+ES TU AMOR PARA MI
+
+TU AMOR NO TIENE FIN
+
+TU LA ÚNICA FUENTE SACIABLE
+TU PARA MI ALMA TAN FAVORABLE
+
+Y YO QUIERO SER OFRENDA AGRADABLE
+Y PODER CORRESPONDER A TU AMOR INAGOTABLE
+
+INCOMPRENSIBLE ES 
+LO MUCHO QUE ME AMAS
+
+Y QUE ME DIGAS 
+HIJO MÍO CUANDO ME LLAMAS
+
+DERRAMAS EN MI VIDA 
+DE TU PRESENCIA
+
+HOY ANHELO 
+SENTIRTE CON EMERGENCIA
+
+JAMÁS HE DE DEJARTE
+SIEMPRE HE DE SERVIRTE
+
+COMPRENDO QUE 
+NACÍ PARA GLORIFICARTE
+
+VOY A SEGUIRTE 
+VOY TRAS TUS PASOS
+
+Y SI ME CANSO 
+DESCANSO EN TUS BRAZOS
+
+ADONDE IRÉ SINO A TI
+PADRE BENDITO
+
+NADIE MEJOR QUE TÚ 
+SABE LO QUE NECESITO
+
+ABRÁZAME, HÁBLAME,
+LLÉNAME, RESTÁURAME, ENAMÓRAME.`,
+
+      "MI ALMA AHNELA": 
+`SEÑOR TU ERES DIGNO 
+DE RECIBIR NUESTRA ADORACIÓN 
+
+SEÑOR TU ERES DIGNO 
+DE RECIBIR NUESTRA ADORACIÓN 
+
+TU ERES EL MOTIVO 
+DE ESTA CANCIÓN
+
+HOY QUIERO ADORARTE, MI DIOS
+
+MI ALMA ANHELA`
+    };
+
+    function generarLista() {
+      const container = document.getElementById('song-list');
+      container.innerHTML = '';
+
+      songs.forEach((title, index) => {
+        const letra = letras[title] || 'LETRA NO DISPONIBLE';
+
+        const div = document.createElement('div');
+        div.className = `song-card bg-zinc-900 border border-zinc-800 rounded-2xl p-6 cursor-pointer`;
+        div.innerHTML = `
+          <div class="flex items-start gap-5">
+            <span class="text-orange-400 font-mono text-2xl font-semibold w-8 flex-shrink-0">${String(index+1).padStart(2, '0')}</span>
+            <div class="flex-1 min-w-0">
+              <h3 class="text-xl font-medium leading-tight">${title}</h3>
+            </div>
+            <span class="text-4xl text-orange-500/30 mt-1">♪</span>
+          </div>
+          
+          <div class="mt-6 hidden letra bg-zinc-950 border border-zinc-700 rounded-2xl p-8">
+            ${letra}
+          </div>
+        `;
+
+        div.addEventListener('click', () => {
+          const content = div.querySelector('.mt-6');
+          content.classList.toggle('hidden');
+        });
+
+        container.appendChild(div);
+      });
+    }
+
+    window.onload = generarLista;
+  </script>
+</body>
+</html>
